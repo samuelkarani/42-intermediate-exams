@@ -1,0 +1,36 @@
+### Level 00
+  - cont_of_2 (fails test 9)
+  - equation
+  - print_doubleon
+
+### Level 01
+  - count_alpha
+  - height_tree
+  - queue
+  - stack
+
+### Level 02
+  - is_looping
+  - longest_sequence
+  - ord_alphlong
+  - reverse_tree
+  - str_maxlenoc
+
+### Level 03
+  - can_split
+  - convert_bst
+  - gold_gain
+  - width_tree
+
+### Level 04
+  - clone_list
+  - intersection
+  - longest_subarray
+  - range_comb
+  - volume_histogram
+
+### Level 05
+  - count_island
+  - g_diam
+  - infin_add
+  - infin_mult

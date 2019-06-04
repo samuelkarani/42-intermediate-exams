@@ -58,14 +58,41 @@ int    volume_histogram(int *histogram, int size)
 	return sum;
 }
 
+int    volume_histogram2(int *histogram, int size)
+{
+	int i, j, imax, jmax, sum;
+	i = sum = imax = jmax = 0;
+	j = size - 1;
+	while (i < j)
+	{
+		if (histogram[i] < histogram[j])
+		{
+			if (histogram[i] > imax)
+				imax = histogram[i];
+			else
+				sum += imax - histogram[i];
+			i++;
+		}
+		else
+		{
+			if (histogram[j] > jmax)
+				jmax = histogram[j];
+			else
+				sum += jmax - histogram[j];
+			j--;
+		}
+	}
+	return sum;
+}
+
 #include <stdio.h>
 int main()
 {
 	int    histogram1[] = {1, 0, 2, 0, 2};
 	int    size = 5;
-	printf("%d\n", volume_histogram(histogram1, size));
+	printf("%d\n", volume_histogram2(histogram1, size));
 	int    histogram2[] = {0, 0, 4, 0, 0, 6, 0, 0, 3, 0, 5, 0, 1, 0, 0, 0};
 	size = 16;
-	printf("%d\n", volume_histogram(histogram2, size));
+	printf("%d\n", volume_histogram2(histogram2, size));
 	return 0;
 }
