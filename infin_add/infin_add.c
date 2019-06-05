@@ -9,6 +9,12 @@ int fstrlen(char *s)
     return count;
 }
 
+void fputstr(char *s)
+{
+    while (*s)
+        write(1, s++, 1);
+}
+
 int fisdigit(int c)
 {
     return c >= '0' && c <= '9';
@@ -19,16 +25,27 @@ int value(int c)
     return c - '0';
 }
 
-int add(int a, int b)
+int add(int a, int b, int carry)
 {
-    return value(a) + value(b);
+    return value(a) + value(b) + carry;
+}
+
+int character(int val)
+{
+    return val >= 10 ? val - 10 + '0' : val + '0';
+}
+
+void zero(char *s, int l)
+{
+    while (--l >= 0)
+        s[l] = 0;
 }
 
 int bigger(char *a, int alen, char *b, int blen, int *equal)
 {
     if (alen == blen)
     {
-        while (*a == *b)
+        while (*a && *b && *a == *b)
         {
             a++;
             b++;
@@ -40,17 +57,17 @@ int bigger(char *a, int alen, char *b, int blen, int *equal)
     return alen > blen;
 }
 
-void print(char *res, int len)
+void print(char *res)
 {
     int i = 0;
     if (*res == '-')
         write(1, res++, 1);
-    while (i < len && res[i] == '0')
+    while (res[i] && res[i] == '0')
         i++;
-    if (i == len)
+    if (!res[i])
         write(1, "0", 1);
     else
-        write(1, res + i, len - i);
+        fputstr(res + i);
 }
 
 int sub(int a, int b, int *borrow, int pb)
@@ -67,16 +84,12 @@ int sub(int a, int b, int *borrow, int pb)
     return a - b;
 }
 
-int character(int val)
-{
-    return val >= 10 ? val - 10 + '0' : val + '0';
-}
-
 void subtract(char *a, int alen, char *b, int blen)
 {
     int rlen, idx, val, aok, bok, borrow, pb;
     rlen = alen > blen ? alen : blen;
-    char res[rlen];
+    char *res = malloc((rlen + 1) * sizeof(char));
+    zero(res, rlen + 1);
     idx = rlen - 1;
     alen--; blen--;
     borrow = pb = 0;
@@ -115,19 +128,20 @@ void subtract(char *a, int alen, char *b, int blen)
         res[idx] = '-';
     else
         idx++;
-    print(res + idx, rlen - idx);
+    print(res + idx);
+    free(res);
 }
-
 
 void adder(char *a, int alen, char *b, int blen)
 {
     int rlen, carry, idx, val, aok, bok, negs;
     negs = *a == '-' && *b == '-';
-    rlen = 1 + alen > blen ? alen : blen + negs;
-    char res[rlen];
-    carry = 0;
+    rlen = 1 + (alen > blen ? alen : blen) + negs;
+    char *res = malloc((rlen + 1) * sizeof(char));
+    zero(res, rlen + 1);
     idx = rlen - 1;
     alen--; blen--;
+    carry = 0;
     while (1)
     {
         aok = alen >= 0 && fisdigit(a[alen]);
@@ -136,8 +150,8 @@ void adder(char *a, int alen, char *b, int blen)
         {
             if (aok && bok)
             {
-                val = add(a[alen--], b[blen--]);
-                res[idx--] = character(carry + val);
+                val = add(a[alen--], b[blen--], carry);
+                res[idx--] = character(val);
             }
             else if (aok)
             {
@@ -160,7 +174,8 @@ void adder(char *a, int alen, char *b, int blen)
         res[idx] = '-';
     else
         idx++;
-    print(res + idx, rlen - idx);
+    print(res + idx);
+    free(res);
 }
 
 int main(int ac, char **av)
