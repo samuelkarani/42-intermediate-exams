@@ -1,19 +1,20 @@
 ### Level 00
-  - cont_of_2
+  - count_of_2
   - equation
-  - print_doubleon
+  - print_doublon
+  - is_anagram (incorrect)
 
 ### Level 01
   - count_alpha
   - height_tree
   - queue
   - stack
+  - flood_fill
 
 ### Level 02
   - is_looping
   - longest_sequence
   - ord_alphlong
-  - reverse_tree
   - str_maxlenoc
 
 ### Level 03
@@ -31,6 +32,6 @@
 
 ### Level 05
   - count_island
-  - g_diam
   - infin_add
+  - g_diam (pending)
   - infin_mult

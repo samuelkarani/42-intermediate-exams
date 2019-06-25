@@ -35,28 +35,28 @@ int	longest_sequence(struct s_node *node)
 	return longest_sequence_h(node, 0);
 }
 
-int count(struct s_node *node, int s)
+int count(struct s_node *node, int n)
 {
-	int ret = s;
-	int tmp;
+	int left, right;
+	int ret = n;
 
 	if (node->left)
 	{
 		if (node->left->value - node->value == 1)
-			tmp = count(node->left, ret + 1);
+			left = count(node->left, n + 1);
 		else
-			tmp = count(node->left, 1);
-		if (tmp > ret)
-			ret = tmp;
+			left = count(node->left, n);
+		if (left > ret)
+			ret = left;
 	}
 	if (node->right)
 	{
 		if (node->right->value - node->value == 1)
-			tmp = count(node->right, ret + 1);
+			right = count(node->right, n + 1);
 		else
-			tmp = count(node->right, 1);
-		if (tmp > ret)
-			ret = tmp;
+			right = count(node->right, n);
+		if (right > ret)
+			ret = right;
 	}
 	return ret;
 }
