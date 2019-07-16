@@ -45,7 +45,7 @@ int count(struct s_node *node, int n)
 		if (node->left->value - node->value == 1)
 			left = count(node->left, n + 1);
 		else
-			left = count(node->left, n);
+			left = count(node->left, 1);
 		if (left > ret)
 			ret = left;
 	}
@@ -54,7 +54,7 @@ int count(struct s_node *node, int n)
 		if (node->right->value - node->value == 1)
 			right = count(node->right, n + 1);
 		else
-			right = count(node->right, n);
+			right = count(node->right, 1);
 		if (right > ret)
 			ret = right;
 	}
@@ -78,11 +78,8 @@ void one(void)
 	struct s_node nine = {.value = 9, .left = NULL, .right = NULL};
 	struct s_node five = {.value = 5, .left = &six, .right = &nine};
 	struct s_node ten = {.value = 10, .left = &five, .right = NULL};
+	printf("%d\n", longest_sequence(&ten));
 	printf("%d\n", longest_sequence2(&ten));
-	// printf("%d\n", longest_sequence2(NULL));
-	// printf("%d\n", longest_sequence2(&five));
-	// printf("%d\n", longest_sequence2(&six));
-	// printf("%d\n", longest_sequence2(&thirteen));
 }
 
 void two(void)
@@ -95,6 +92,7 @@ void two(void)
 	struct s_node four = {4, &nine, &three_a};
 	struct s_node six = {6, NULL, NULL};
 	struct s_node five = {5, &six, &four};
+	printf("%d\n", longest_sequence(&five));
 	printf("%d\n", longest_sequence2(&five));
 }
 
@@ -105,7 +103,20 @@ void	three(void)
 	struct s_node fortyone = {41, &eighty, NULL};
 	struct s_node fifteen = {15, &sixtyone, NULL};
 	struct s_node thirty = {30, &fifteen, &fortyone};
+	printf("%d\n", longest_sequence(&thirty));
 	printf("%d\n", longest_sequence2(&thirty));
+}
+
+void four(void)
+{
+	struct s_node three = {3, 0, 0};
+	struct s_node two = {2, 0, &three};
+	struct s_node one = {1, 0, &two};
+	struct s_node sixa = {6, 0, 0};
+	struct s_node sixb = {6, &one, 0};
+	struct s_node five = {1, &sixa, &sixb};
+	printf("%d\n", longest_sequence(&five));
+	printf("%d\n", longest_sequence2(&five));
 }
 
 int main(void)
@@ -113,7 +124,10 @@ int main(void)
 	one();
 	two();
 	three();
+	four();
+	printf("%d\n", longest_sequence(NULL));
 	printf("%d\n", longest_sequence2(NULL));
 	struct s_node one = {1, NULL, NULL};
+	printf("%d\n", longest_sequence(&one));
 	printf("%d\n", longest_sequence2(&one));
 }
