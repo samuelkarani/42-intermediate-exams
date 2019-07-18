@@ -2,7 +2,8 @@
   - count_of_2
   - equation
   - print_doublon
-  - is_anagram (incorrect)
+  - is_anagram
+  - find_pivot
 
 ### Level 01
   - count_alpha
@@ -16,6 +17,7 @@
   - longest_sequence
   - ord_alphlong
   - str_maxlenoc
+  - reverse_tree
 
 ### Level 03
   - can_split

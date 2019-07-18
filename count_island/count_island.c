@@ -115,9 +115,9 @@ void count_island(int h, int w, char *map[h])
 
 void print_map(char **map, int h, int w)
 {
-	int i = 0;
-	while (i < h)
-		write(1, map[i++], w);
+	int i = -1;
+	while (++i < h)
+		write(1, map[i], i + 1 == h ? w - 1 : w);
 }
 
 #include <stdio.h>
@@ -147,7 +147,7 @@ int main(int ac, char **av)
 						err = 1;
 					if (!err)
 					{
-						write(0, line, len);
+						// write(0, line, len);
 						add(&lst, line);
 						len = 0;
 						line = NULL;
@@ -165,8 +165,8 @@ int main(int ac, char **av)
 					if (no_endline)
 					{
 						add(&lst, line);
-						write(0, line, len);
-						write(1, "\n\n", 2);
+						// write(0, line, len);
+						// write(1, "\n\n", 2);
 						h++;
 					}
 					char *map[h];

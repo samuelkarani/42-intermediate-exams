@@ -20,9 +20,8 @@ int check_split(struct s_node *n, int s)
 		return 0;
 	if (s - n->value == n->value)
 		return 1;
-	if (check_split(n->left, s))
-		return 1;
-	if (check_split(n->right, s))
+	if (check_split(n->left, s)
+        || check_split(n->right, s))
 		return 1;
 	return 0;
 }

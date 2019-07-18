@@ -1,28 +1,15 @@
 int     is_anagram(char *a, char *b)
 {
-	long asum, bsum;
-	int alen, blen, i;
-
-	asum = 0;
-	i = 0;
-	while (a[i])
-	{
-		asum += a[i];
-		i++;
-	}
-	alen = i;
-	bsum = 0;
-	i = 0;
-	while (b[i])
-	{
-		bsum += b[i];
-		i++;
-	}
-	blen = i;
-	if (alen == blen && asum == bsum)
-		return 1;
-	else
-		return 0;
+	char alpha[128] = {0};
+	while (*a)
+		alpha[*a++]++;
+	while (*b)
+		alpha[*b++]--;
+	int i = -1;
+	while (++i < 128)
+		if (alpha[i])
+			return 0;
+	return 1;
 }
 
 
