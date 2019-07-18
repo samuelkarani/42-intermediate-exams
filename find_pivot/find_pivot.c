@@ -1,31 +1,25 @@
 int     find_pivot(int *arr, int n)
 {
-	int i, j, asum, bsum;
-	i = 0;
-  	j = n - 1;
-	asum = arr[i++], bsum = arr[j--];
-	while (i < j)
+	int i, j, suma, sumb;
+	i = suma = 0;
+	while (i < n)
 	{
-		while (arr[i] == 0)
-			i++;
-		while (arr[j] == 0)
-			j--;
-		if (bsum < asum)
-			bsum += arr[j--];
-		else if (asum < bsum)
-			asum += arr[i++];
-		if (asum == bsum)
-		{
-			if (i == j)
-				return i;
-			asum += arr[i++];
-			bsum += arr[j--];
-		}
+		suma += arr[i];
+		i++;
+	}
+	i = n - 1;
+	sumb = 0;
+	while (i >= 0)
+	{
+		if (suma - arr[i] == sumb)
+			return i;
+		sumb += arr[i];
+		suma -= arr[i];
+		i--;
 	}
 	return -1;
 }
 
-/*
 #include <stdio.h>
 int main()
 {
@@ -34,5 +28,6 @@ int main()
 	printf("%d\n", find_pivot((int[]){1, 100, 0, 0, 1}, 5));
 	printf("%d\n", find_pivot((int[]){7, 9, 8}, 3));
 	printf("%d\n", find_pivot((int[]){1 , 2}, 2));
+	printf("%d\n", find_pivot((int[]){1 , 0}, 2));
+	printf("%d\n", find_pivot((int[]){0, 1}, 2));
 }
-*/
