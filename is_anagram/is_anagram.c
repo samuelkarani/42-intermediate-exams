@@ -1,10 +1,10 @@
 int     is_anagram(char *a, char *b)
 {
-	char alpha[128] = {0};
+	int alpha[128] = {0};
 	while (*a)
-		alpha[*a++]++;
+		alpha[(unsigned int)*a++]++;
 	while (*b)
-		alpha[*b++]--;
+		alpha[(unsigned int)*b++]--;
 	int i = -1;
 	while (++i < 128)
 		if (alpha[i])
