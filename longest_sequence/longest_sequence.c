@@ -96,7 +96,7 @@ void two(void)
 	printf("%d\n", longest_sequence2(&five));
 }
 
-void	three(void)
+void three(void)
 {
 	struct s_node eighty = {80, NULL, NULL};
 	struct s_node sixtyone = {61, NULL, NULL};
