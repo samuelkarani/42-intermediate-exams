@@ -35,6 +35,22 @@ int	longest_sequence(struct s_node *node)
 	return longest_sequence_h(node, 0);
 }
 
+int mx(int a, int b, int c)
+{
+	return a > b ? (a > c ? a : c ) : (b > c ? b : c);
+}
+
+int count2(struct s_node *node, int n)
+{
+	if (!node)
+		return n;
+	int ls = node->left ? node->left->value - node->value == 1 : 0;
+	int rs = node->right ? node->right->value - node->value == 1 : 0;
+	int left = count2(node->left, ls ? n + 1 : 1);
+	int right = count2(node->right, rs ? n + 1 : 1);
+	return mx(n, left, right);
+}
+
 int count(struct s_node *node, int n)
 {
 	int left, right;
