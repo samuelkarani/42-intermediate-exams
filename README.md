@@ -1,4 +1,4 @@
-The questions are in subject.txt files
+Questions are in the subject.txt files inside each folder
 
 ### Level 00
   - count_of_2
@@ -37,5 +37,5 @@ The questions are in subject.txt files
 ### Level 05
   - count_island
   - infin_add
-  - g_diam (pending)
+  - g_diam
   - infin_mult

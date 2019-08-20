@@ -104,11 +104,12 @@ char *longest_subarray2(char *arr)
 			{
 				lg = k;
 				idx = (t_score){i, j + 1};
+				i = j;
 			}
 			j++;
 		}
 		i++;
-	}	
+	}
 	return fstrsub2(arr, idx.even, idx.odd);
 }
 

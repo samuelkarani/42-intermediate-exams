@@ -31,6 +31,28 @@ void fputstr(char *s)
         write(1, s++, 1);
 }
 
+t_pos mx(t_pos a, t_pos b)
+{
+	if (a.n > b.n)
+		return a;
+	return b;
+}
+
+t_pos maxlen2(char *s, char *r, t_pos res)
+{
+	if (!*s || !*r)
+		return res;
+	if (*s == *r)
+	{
+		t_pos cp = res;
+		if (!cp.s)
+			cp.s = s;
+		cp.n++;
+		return maxlen2(s + 1, r + 1, cp);
+	}
+	return mx(maxlen2(s + 1, r, res), maxlen2(s, r + 1, res));
+}
+
 t_pos maxlen(char *res, char *s)
 {
     t_pos ret;
@@ -54,12 +76,14 @@ t_pos maxlen(char *res, char *s)
                     res++;
                     n++;
                 }
-                res = ress;
                 if (n > ret.n)
                 {
                     ret.s = p;
                     ret.n = n;
+					res -= 1;
                 }
+				else
+					res = ress;
             }
             else
                 s++;
@@ -82,6 +106,7 @@ int main(int ac, char **av)
         while (i < ac)
         {
             t_pos ret = maxlen(res, av[i]);
+			// t_pos ret = maxlen2(res, av[i], (t_pos){NULL, 0});
             if (ret.n < mx)
             {
                 res = fstrsub(ret.s, ret.n);
