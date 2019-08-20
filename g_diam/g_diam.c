@@ -125,15 +125,20 @@ int dfs(t_node *node, int n)
 {
 	t_node *neighbor;
 	node->visited = 1;
-	n += 1;
 	// printf("node %d ", node->name);
+	int ret, mx = n;
 	for (int i = 0; i < node->neighbors; i++)
 	{
 		neighbor = node->connected[i];
 		if (!neighbor->visited)
-			n = dfs(neighbor, n);
+		{
+			ret = dfs(neighbor, n + 1);
+			if (ret > mx)
+				mx = ret;
+		}
 	}
-	return n;
+	node->visited = 0;
+	return mx;
 }
 
 int main(int ac, char **av)
@@ -163,8 +168,7 @@ int main(int ac, char **av)
 		int mx = 0, ret;
 		for (int i = 0; i < graph->index; i++)
 		{
-			ret = dfs(graph->nodes[i], 0);
-			// printf("\n");
+			ret = dfs(graph->nodes[i], 1);
 			if (ret > mx)
 				mx = ret;
 			reset(graph);

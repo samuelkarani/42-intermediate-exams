@@ -37,5 +37,5 @@ Questions are in the subject.txt files inside each folder
 ### Level 05
   - count_island
   - infin_add
-  - g_diam (pending)
+  - g_diam
   - infin_mult
