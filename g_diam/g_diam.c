@@ -126,7 +126,7 @@ int dfs(t_node *node, int n)
 	t_node *neighbor;
 	node->visited = 1;
 	n += 1;
-	printf("node %d ", node->name);
+	// printf("node %d ", node->name);
 	for (int i = 0; i < node->neighbors; i++)
 	{
 		neighbor = node->connected[i];
@@ -159,12 +159,12 @@ int main(int ac, char **av)
 				break ;
 			s++;
 		}
-		printGraph(graph); printf("\n");
+		// printGraph(graph); printf("\n");
 		int mx = 0, ret;
 		for (int i = 0; i < graph->index; i++)
 		{
 			ret = dfs(graph->nodes[i], 0);
-			printf("\n");
+			// printf("\n");
 			if (ret > mx)
 				mx = ret;
 			reset(graph);
