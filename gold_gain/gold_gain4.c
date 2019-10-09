@@ -57,8 +57,8 @@ int main(void)
 	printf("%d\n", gold_gain(create(3, a), 3));
 	int b[3][3] = {
 	{ 1, 2, 3 },
-		{ 3, 4, 8 },
-			{9, 6, 7 }
+	{ 3, 4, 8 },
+	{ 9, 6, 7 }
 			};
 	printf("%d\n", gold_gain(create(3, b), 3));
 	int c[4][4] = {
@@ -69,4 +69,3 @@ int main(void)
 				};
 	printf("%d\n", gold_gain(create(4, c), 4));
 }
-
