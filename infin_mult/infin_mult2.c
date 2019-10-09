@@ -38,7 +38,7 @@ char *fcpy(char *src, int n)
 	return res;
 }
 
-int add(char *a, int alen, char *b, int blen)
+void add(char *a, int alen, char *b, int blen)
 {
 	int s, c, i, j;
 	i = alen - 1, j = blen - 1;
@@ -59,13 +59,6 @@ int add(char *a, int alen, char *b, int blen)
 		c = s >= 10 ? 1 : 0;
 		a[i + 1] = (s % 10) + '0';
 	}
-	if (c)
-	{
-		printf("here\n");
-		a[i] = c + '0';
-		return i;
-	}
-	return i + 1;
 }
 
 void multiply(char a, char b, struct s_elem *e)
@@ -80,7 +73,7 @@ void multiply(char a, char b, struct s_elem *e)
 char *mult(char *a, int alen, char *b, int blen)
 {
 	struct s_elem s;
-	int n, idx;
+	int n;
 	n = alen + blen;
 	char res[n + 1], tmp[n + 1];
 	res[n] = 0;
@@ -98,12 +91,14 @@ char *mult(char *a, int alen, char *b, int blen)
 		}
 		if (s.c)
 			tmp[--jdx] = s.c + '0';
-		idx = add(res, n, tmp, n);
+		add(res, n, tmp, n);
 	}
-	printf("%d\n", idx);
-	if (s.c)
-		res[--idx] = s.c + '0';
-	return fcpy(res, n);
+	int i;
+	for (i = 0; res[i] == '0'; i++)
+		;
+	if (!res[i])
+		i -= 1;
+	return fcpy(res + i, n);
 }
 
 int main(int ac, char **av)
@@ -118,7 +113,7 @@ int main(int ac, char **av)
 	if (bneg)
 		b++;
 	char *res = mult(a, fstrlen(a), b, fstrlen(b));
-	if (!pos)
+	if (!pos && !(*res == '0' && !*(res + 1)))
 		fputstr("-");
 	fputstr(res);
 }
