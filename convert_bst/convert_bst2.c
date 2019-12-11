@@ -1,8 +1,9 @@
-struct s_node {
-                int           value;
-                struct s_node *right;
-                struct s_node *left;
-        };
+struct s_node
+{
+	int value;
+	struct s_node *right;
+	struct s_node *left;
+};
 
 struct s_node *join(struct s_node *a, struct s_node *b)
 {
@@ -11,12 +12,12 @@ struct s_node *join(struct s_node *a, struct s_node *b)
 		return b;
 	if (!b)
 		return a;
-	
+
 	aback = a->left;
 	bback = b->left;
 
 	aback->right = b;
-   	b->left = aback;
+	b->left = aback;
 
 	bback->right = a;
 	a->left = bback;
@@ -36,25 +37,24 @@ struct s_node *convert_bst(struct s_node *bst)
 	return join(join(left, bst), right);
 }
 
-
 #include <stdio.h>
 void print_tree(struct s_node *node)
 {
 	if (node)
 	{
-	struct s_node *start = node;
-	do
-	{
-		printf("%d ", node->value);
-		node = node->right;
-	} while (node != start);
-	printf("\n");
-	do
-	{
-		printf("%d ", node->value);
-		node = node->left;
-	} while (node != start);
-	printf("\n");
+		struct s_node *start = node;
+		do
+		{
+			printf("%d ", node->value);
+			node = node->right;
+		} while (node != start);
+		printf("\n");
+		do
+		{
+			printf("%d ", node->value);
+			node = node->left;
+		} while (node != start);
+		printf("\n");
 	}
 }
 
