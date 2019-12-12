@@ -1,11 +1,11 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-typedef struct s_pos{
+typedef struct s_pos
+{
     char *s;
     int n;
-}   t_pos;
-
+} t_pos;
 
 int fstrlen(char *s)
 {
@@ -33,24 +33,38 @@ void fputstr(char *s)
 
 t_pos mx(t_pos a, t_pos b)
 {
-	if (a.n > b.n)
-		return a;
-	return b;
+    if (a.n > b.n)
+        return a;
+    return b;
 }
 
 t_pos maxlen2(char *s, char *r, t_pos res)
 {
-	if (!*s || !*r)
-		return res;
-	if (*s == *r)
-	{
-		t_pos cp = res;
-		if (!cp.s)
-			cp.s = s;
-		cp.n++;
-		return maxlen2(s + 1, r + 1, cp);
-	}
-	return mx(maxlen2(s + 1, r, res), maxlen2(s, r + 1, res));
+    if (!*s || !*r)
+        return res;
+    if (*s == *r)
+    {
+        t_pos cp = res;
+        if (!cp.s)
+            cp.s = s;
+        cp.n++;
+        return maxlen2(s + 1, r + 1, cp);
+    }
+    return mx(maxlen2(s + 1, r, res), maxlen2(s, r + 1, res));
+}
+
+int max(int a, int b)
+{
+    return a > b ? a : b;
+}
+
+int strmaxlenoc(char *a, char *b)
+{
+    if (!*a || !*b)
+        return 0;
+    if (*a == *b)
+        return 1 + strmaxlenoc(a + 1, b + 1);
+    return max(strmaxlenoc(a + 1, b), strmaxlenoc(a, b + 1));
 }
 
 t_pos maxlen(char *res, char *s)
@@ -80,10 +94,10 @@ t_pos maxlen(char *res, char *s)
                 {
                     ret.s = p;
                     ret.n = n;
-					res -= 1;
+                    res -= 1;
                 }
-				else
-					res = ress;
+                else
+                    res = ress;
             }
             else
                 s++;
@@ -106,7 +120,7 @@ int main(int ac, char **av)
         while (i < ac)
         {
             t_pos ret = maxlen(res, av[i]);
-			// t_pos ret = maxlen2(res, av[i], (t_pos){NULL, 0});
+            // t_pos ret = maxlen2(res, av[i], (t_pos){NULL, 0});
             if (ret.n < mx)
             {
                 res = fstrsub(ret.s, ret.n);
