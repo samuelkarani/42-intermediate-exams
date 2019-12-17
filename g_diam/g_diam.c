@@ -71,7 +71,7 @@ t_graph *initGraph(int n)
 	t_graph *graph = malloc(sizeof(t_graph));
 	graph->nodes = malloc(n * sizeof(t_node *));
 	for (int i = 0; i < n; i++)
-		graph->nodes[i]	= NULL;
+		graph->nodes[i] = NULL;
 	graph->index = 0;
 	graph->capacity = n;
 	return graph;
@@ -97,7 +97,7 @@ t_node *fetch(t_graph *graph, int v)
 
 	for (i = 0; i < graph->capacity; i++)
 		if (graph->nodes[i] && graph->nodes[i]->name == v)
-			break ;
+			break;
 	if (i == graph->capacity)
 	{
 		node = create(v, graph->capacity - 1);
@@ -111,7 +111,7 @@ void add(t_graph *graph, int v, int neighbor)
 	t_node *node = fetch(graph, v);
 	for (int i = 0; i < node->neighbors; i++)
 		if (node->connected[i]->name == neighbor)
-			return ;
+			return;
 	node->connected[node->neighbors++] = fetch(graph, neighbor);
 }
 
@@ -161,7 +161,7 @@ int main(int ac, char **av)
 			add(graph, a, b);
 			add(graph, b, a);
 			if (!*s)
-				break ;
+				break;
 			s++;
 		}
 		// printGraph(graph); printf("\n");

@@ -53,20 +53,6 @@ t_pos maxlen2(char *s, char *r, t_pos res)
     return mx(maxlen2(s + 1, r, res), maxlen2(s, r + 1, res));
 }
 
-int max(int a, int b)
-{
-    return a > b ? a : b;
-}
-
-int strmaxlenoc(char *a, char *b)
-{
-    if (!*a || !*b)
-        return 0;
-    if (*a == *b)
-        return 1 + strmaxlenoc(a + 1, b + 1);
-    return max(strmaxlenoc(a + 1, b), strmaxlenoc(a, b + 1));
-}
-
 t_pos maxlen(char *res, char *s)
 {
     t_pos ret;
@@ -119,8 +105,8 @@ int main(int ac, char **av)
         i = 2;
         while (i < ac)
         {
-            t_pos ret = maxlen(res, av[i]);
-            // t_pos ret = maxlen2(res, av[i], (t_pos){NULL, 0});
+            // t_pos ret = maxlen(res, av[i]);
+            t_pos ret = maxlen2(res, av[i], (t_pos){NULL, 0});
             if (ret.n < mx)
             {
                 res = fstrsub(ret.s, ret.n);
