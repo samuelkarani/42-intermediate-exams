@@ -76,19 +76,19 @@ int main(int ac, char **av)
 {
     if (ac > 1)
     {
-        int i, d, mx;
-        char *res, s;
+        int i, d, mn;
+        char *res;
         res = av[1];
-        mx = fstrlen(res);
+        mn = fstrlen(res);
         i = 2;
         while (i < ac)
         {
             t_pos ret = maxlen(res, av[i]);
-            if (ret.n < mx)
+            if (ret.n < mn)
             {
                 res = fstrsub(ret.s, ret.n);
-                mx = ret.n;
-                if (!mx)
+                mn = ret.n;
+                if (!mn)
                     break;
             }
             i++;

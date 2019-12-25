@@ -3,9 +3,9 @@
 
 int fstrlen(char *s)
 {
-	int i;
-	for (i = 0; s[i]; i++)
-		s++;
+	int i = 0;
+	while (*s++)
+		i++;
 	return i;
 }
 
@@ -25,41 +25,45 @@ char *fstrsub(char *src, int n)
 	return dst;
 }
 
-#include <stdio.h>
 int main(int ac, char **av)
 {
 	if (ac >= 2)
 	{
-		int n, mx;
 		char *s = av[1], *p;
 		int mn = fstrlen(s);
 		for (int i = 2; i < ac; i++)
 		{
-			mx = 0;
+			int mx = 0;
 			for (int j = 0; s[j]; j++)
 			{
 				for (char *r = av[i]; *r; r++)
 				{
-					n = 0;
-					char *rs = r;
-					char *sp = s + j;
-					while (*sp && *r && *r == *sp)
+					int n = 0;
+					char *_r = r;
+					char *_s = s + j;
+					while (*_s && *_r && *_r == *_s)
 					{
-						sp++;
-						r++;
+						_s++;
+						_r++;
 						n++;
 					}
 					if (n > mx)
-						p = fstrsub(rs, n);
-					else
-						r = rs;
+					{
+						mx = n;
+						p = fstrsub(r, n);
+						r = _r - 1;
+					}
 				}
 			}
-			if (mx < mn)
+			if (mx == 0)
+			{
+				s = "";
+				break;
+			}
+			else if (mx < mn)
 			{
 				mn = mx;
 				s = p;
-				printf("%s %d\n", s, mn);
 			}
 		}
 		fpr(s);
