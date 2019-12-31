@@ -94,6 +94,7 @@ void one(void)
 	struct s_node nine = {.value = 9, .left = NULL, .right = NULL};
 	struct s_node five = {.value = 5, .left = &six, .right = &nine};
 	struct s_node ten = {.value = 10, .left = &five, .right = NULL};
+
 	// printf("%d\n", longest_sequence(&ten));
 	printf("%d\n", longest_sequence2(&ten));
 }
@@ -108,6 +109,7 @@ void two(void)
 	struct s_node four = {4, &nine, &three_a};
 	struct s_node six = {6, NULL, NULL};
 	struct s_node five = {5, &six, &four};
+
 	// printf("%d\n", longest_sequence(&five));
 	printf("%d\n", longest_sequence2(&five));
 }
@@ -119,6 +121,7 @@ void three(void)
 	struct s_node fortyone = {41, &eighty, NULL};
 	struct s_node fifteen = {15, &sixtyone, NULL};
 	struct s_node thirty = {30, &fifteen, &fortyone};
+
 	// printf("%d\n", longest_sequence(&thirty));
 	printf("%d\n", longest_sequence2(&thirty));
 }
@@ -131,6 +134,7 @@ void four(void)
 	struct s_node sixa = {6, 0, 0};
 	struct s_node sixb = {6, &one, 0};
 	struct s_node five = {1, &sixa, &sixb};
+
 	// printf("%d\n", longest_sequence(&five));
 	printf("%d\n", longest_sequence2(&five));
 }
@@ -141,9 +145,13 @@ int main(void)
 	two();
 	three();
 	four();
+
 	// printf("%d\n", longest_sequence(NULL));
 	printf("%d\n", longest_sequence2(NULL));
+
+	printf("%d\n", longest_sequence(NULL));
+	// printf("%d\n", longest_sequence2(NULL));
 	struct s_node one = {1, NULL, NULL};
-	// printf("%d\n", longest_sequence(&one));
-	printf("%d\n", longest_sequence2(&one));
+	printf("%d\n", longest_sequence(&one));
+	// printf("%d\n", longest_sequence2(&one));
 }

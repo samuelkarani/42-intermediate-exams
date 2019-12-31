@@ -1,37 +1,37 @@
 struct s_node
 {
-        int value;
-        struct s_node *left;
-        struct s_node *right;
+	int value;
+	struct s_node *left;
+	struct s_node *right;
 };
 
 int count(struct s_node *n)
 {
 	if (!n)
 		return 0;
-	int c = 1 + count(n->left) + count(n->right);
-   return n->value = c;
+	int h = 1 + count(n->left) + count(n->right);
+	return n->value = h;
 }
 
-int helper(struct s_node *n, int c)
+int helper(struct s_node *n, int h)
 {
 	if (!n)
 		return 0;
-	if (n->value * 2 == c)
+	if (n->value == h / 2)
 		return 1;
-	if (helper(n->left, c) || helper(n->right, c))
+	int l = helper(n->left, h);
+	int r = helper(n->right, h);
+	if (l || r)
 		return 1;
 	return 0;
 }
 
-int     can_split(struct s_node *n)
+int can_split(struct s_node *n)
 {
-	if (!n)
+	int h = count(n);
+	if (h % 2 == 1)
 		return 0;
-	int c = count(n);
-	if (c % 2 == 1)
-		return 0;
-	return helper(n, c);
+	return helper(n, h);
 }
 
 #include <stdlib.h>
@@ -42,7 +42,6 @@ struct s_node *c(int n)
 	res->left = res->right = 0;
 	return res;
 }
-
 #include <stdio.h>
 int main()
 {
@@ -60,8 +59,6 @@ int main()
 	a->left->left = c(41);
 	a->right->left = c(80);
 	printf("%d\n", can_split(a));
-
-
 
 	a = c(10);
 	a->right = c(12);
@@ -82,3 +79,21 @@ int main()
 
 	printf("%d\n", can_split(0));
 }
+
+/*
+#include <stdio.h>
+typedef struct s_node t_node;
+int main()
+{
+	t_node four = (t_node){4, 0, 0};
+	t_node five = (t_node){5, 0, 0};
+	t_node six = (t_node){6, 0, 0};
+	t_node three = (t_node){3, &four, &five};
+	t_node two = (t_node){2, &three, &six};
+	t_node one = (t_node){2, &two, 0};
+	printf("%d\n", can_split(&one));
+	printf("%d\n", can_split(&two));
+	printf("%d\n", can_split(&six));
+	printf("%d\n", can_split(NULL));
+}
+*/
