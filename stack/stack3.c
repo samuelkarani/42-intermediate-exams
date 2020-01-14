@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-  struct s_node {
+   struct s_node {
                 void          *content;
                 struct s_node *next;
         };
@@ -10,8 +10,7 @@
         };
 
 
-
- struct s_stack *init(void)
+  struct s_stack *init(void)
 {
 	struct s_stack *stack = malloc(sizeof(struct s_stack));
 	stack->top = NULL;
@@ -31,11 +30,10 @@
 {
 	if (!stack)
 		return ;
-	struct s_node *node = malloc(sizeof(struct s_node));
-	node->content = content;
-	node->next = NULL;
-	node->next = stack->top;
-	stack->top = node;
+	struct s_node *new = malloc(sizeof(struct s_node));
+	new->content = content;
+	new->next = stack->top;
+	stack->top = new;
 }
 
         void *peek(struct s_stack *stack)
@@ -57,15 +55,15 @@ int main()
 	struct s_stack *s = init();
 	printf("%s %d %s\n", pop(s), isEmpty(s), peek(s));
 	push(s, "1");
-	printf("%d %s\n", isEmpty(s), peek(s));
+	printf("%s %d\n", peek(s), isEmpty(s));
 	push(s, "2");
-	printf("%d %s\n", isEmpty(s), peek(s));
+	printf("%s %d\n", peek(s), isEmpty(s));
 	push(s, "3");
-	printf("%d %s\n", isEmpty(s), peek(s));
-	
-	printf("%s %d %s\n", pop(s), isEmpty(s), peek(s));
-	printf("%s %d %s\n", pop(s), isEmpty(s), peek(s));
-	printf("%s %d %s\n", pop(s), isEmpty(s), peek(s));
-	printf("%s %d %s\n", pop(s), isEmpty(s), peek(s));
+	printf("%s %d\n", peek(s), isEmpty(s));
+
+	printf("%s %d %s\n", peek(s), isEmpty(s), pop(s));
+	printf("%s %d %s\n", peek(s), isEmpty(s), pop(s));
+	printf("%s %d %s\n", peek(s), isEmpty(s), pop(s));
+	printf("%s %d %s\n", peek(s), isEmpty(s), pop(s));
 }
 */
