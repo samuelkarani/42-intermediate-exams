@@ -1,37 +1,37 @@
 #include <stdlib.h>
 #include <string.h>
 
-void rest(int *nrst, int *rst, int k, int n)
+int factorial(int n)
 {
-	int a = 0;
-	for (int i = 0; i < n; i++)
-		if (i != k)
-			nrst[a++] = rst[i];
+	int res = 1;
+	for (; n >= 2; n--)
+		res *= n;
+	return res;
 }
 
-int helper(int *arr, int *rst, int d, int n, int idx, int **ret)
+void rest(int *rst, int i, int n, int *nrst)
+{
+	int idx = 0;
+	for (int j = 0; j < n; j++)
+		if (i != j)
+			nrst[idx++] = rst[j];
+}
+
+int helper(int *rst, int *cur, int d, int idx, int n, int **res)
 {
 	if (d == n)
 	{
-		memcpy(ret[idx], arr, n * sizeof(int));
+		memcpy(res[idx], cur, n * sizeof(int));
 		return idx + 1;
 	}
-	int nrst[n - d - 1];
+	int nrst[n - 1];
 	for (int i = 0; i < n - d; i++)
 	{
-		arr[d] = rst[i];
-		rest(nrst, rst, i, n);
-		idx = helper(arr, nrst, d + 1, n, idx, ret);
+		cur[d] = rst[i];
+		rest(rst, i, n, nrst);
+		idx = helper(nrst, cur, d + 1, idx, n, res);
 	}
 	return idx;
-}
-
-int factorial(int n)
-{
-	int p = 1;
-	for (int i = 2; i <= n; i++)
-		p *= i;
-	return p;
 }
 
 int    **range_comb(int n)
@@ -39,35 +39,37 @@ int    **range_comb(int n)
 	if (n <= 0)
 		return NULL;
 	int f = factorial(n);
-	int **ret = malloc(sizeof(int *) * (f + 1));
-	ret[f] = NULL;
-	for (int i = 0 ; i < f; i++)
-		ret[i] = malloc(sizeof(int) * n);
-	int rst[n];
+	int **res = malloc(sizeof(int *) * (f + 1));
+	res[f] = NULL;
+	for (int i = 0; i < f; i++)
+		res[i] = malloc(sizeof(int) * n);
+	int rst[n], cur[n];
 	for (int i = 0; i < n; i++)
 		rst[i] = i;
-	int arr[n];
-	helper(arr, rst, 0, n, 0, ret);
-	return ret;
+	helper(rst, cur, 0, 0, n, res);
+	return res;
 }
-
 /*
 #include <stdio.h>
 void print(int **arr, int n)
 {
 	for (int i = 0; arr[i]; i++)
-	{
+	{	
 		for (int j = 0; j < n; j++)
-			printf("%d ", arr[i][j]);
+			printf("%d ", arr[i][j]);	
 		printf("\n");
 	}
 }
 
-int main(int ac, char **av)
+int main()
 {
-	if (ac == 2)
-	{
-		int n = atoi(av[1]);
-		print(range_comb(n), n);
-	}
-}*/
+	int n = 1;
+	print(range_comb(n), n);
+	n = 2;
+	print(range_comb(n), n);
+	n = 3;
+	print(range_comb(n), n);
+	n = 4;
+	print(range_comb(n), n);
+}
+*/
